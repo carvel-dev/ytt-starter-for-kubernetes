@@ -1,0 +1,50 @@
+#@ load("@ytt:data", "data")
+---
+
+#@ def labels():
+  app.kubernetes.io/name: #@ data.values.name + "-name"
+  app.kubernetes.io/managed-by: kapp
+#@ end
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: #@ data.values.name + "-name-server"
+spec:
+  selector:
+    matchLabels: #@ labels()
+  replicas: #@ data.values.replicas
+  template:
+    metadata:
+      labels: #@ labels()
+    spec:
+      containers:
+        - name: webserver
+          #! built from ./src/application-name/Dockerfile
+          image: #@ data.values.image
+          env:
+            - name: GREETING
+              valueFrom:
+                configMapKeyRef:
+                  name: #@ data.values.name + "-config"
+                  key: greeting
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: #@ data.values.name + "-service-name"
+spec:
+  type: NodePort
+  selector: #@ labels()
+  ports:
+    - port: 8080
+      targetPort: 80
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: #@ data.values.name + "-config"
+data:
+  greeting: #@ data.values.greeting

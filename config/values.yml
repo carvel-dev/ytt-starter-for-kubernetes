@@ -1,0 +1,6 @@
+#@data/values
+---
+name: "application"
+greeting: "Hello"
+replicas: 1
+image: gcr.io/cf-k8s-lifecycle-tooling-klt/starter@sha256:bbf0c1fb9b64fc0042588feae6e789ad8d9beda6d65839f522974c40fe4353b3
