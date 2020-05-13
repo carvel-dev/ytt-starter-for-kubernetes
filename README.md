@@ -18,7 +18,7 @@ This repo shows a brief example of ytt templating.
    Forwarding from 127.0.0.1:8080 -> 80
    Forwarding from [::1]:8080 -> 80
     ```
-4.   Verify the deployment
+4. Verify the deployment
    ```console
    $ curl localhost:8080/app/
    ``` 
