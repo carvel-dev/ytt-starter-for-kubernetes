@@ -3,7 +3,6 @@
 
 #@ def labels():
   app.kubernetes.io/name: #@ data.values.name + "-name"
-  app.kubernetes.io/managed-by: kapp
 #@ end
 ---
 apiVersion: apps/v1
