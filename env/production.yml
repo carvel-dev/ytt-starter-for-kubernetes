@@ -1,4 +1,0 @@
-#@data/values
----
-greeting: "Hello World"
-replicas: 3

@@ -1,14 +1,14 @@
 #@ load("@ytt:data", "data")
 
 #@ def labels():
-app.kubernetes.io/name: #@ data.values.name + "-name"
+app.kubernetes.io/name: #@ data.values.name
 #@ end
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: #@ data.values.name + "-name-server"
+  name: #@ data.values.name
 spec:
   selector:
     matchLabels: #@ labels()
@@ -19,21 +19,19 @@ spec:
     spec:
       containers:
         - name: webserver
-          #! built from ./src/application-name/Dockerfile
           image: #@ data.values.image
           env:
             - name: GREETING
               valueFrom:
                 configMapKeyRef:
-                  name: #@ data.values.name + "-config"
+                  name: #@ data.values.name
                   key: greeting
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: #@ data.values.name + "-service-name"
+  name: #@ data.values.name
 spec:
-  type: NodePort
   selector: #@ labels()
   ports:
     - port: 8080
@@ -42,6 +40,6 @@ spec:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: #@ data.values.name + "-config"
+  name: #@ data.values.name
 data:
   greeting: #@ data.values.greeting

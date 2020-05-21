@@ -1,0 +1,4 @@
+#@data/values
+---
+greeting: "Hello production"
+replicas: 3
