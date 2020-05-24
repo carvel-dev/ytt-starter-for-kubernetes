@@ -1,8 +1,14 @@
 # Overview
 
-This repo shows a brief example of ytt templating.
+Use this repo as an example for organizing [ytt](https://get-ytt.io) templates for your application.
 
-# Instructions
+## Directory structure
+
+- `config/` contains files describing app configuration
+- `config-env/` contains environment configuration files
+- `Dockerfile`
+
+## Instructions
 
 1. Obtain and target a Kubernetes Cluster.
 
